@@ -13,7 +13,7 @@ jobs:
       run:
         working-directory: app
     env:
-      TAG: v1.0.0
+      TAG: v1.0.1
 
     steps:
       - name: Checkout
