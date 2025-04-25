@@ -1,36 +1,37 @@
-from app import app
 import unittest
+from app import app
 
-class Test(unittest.TestCase):
+class TestApp(unittest.TestCase):
     def setUp(self):
-        # Cria uma instância do unittest, precisa do nome "setUp"
+        # Configura o cliente de teste do Flask
         self.app = app.test_client()
+        self.app.testing = True
 
-    def test_requisicao(self):
-        # Envia uma requisição GET para a URL e verifica o status
-        result = self.app.get('/')
-        self.assertEqual(result.status_code, 200)
+    def test_pagina_inicial_status_code(self):
+        # Testa se a página inicial retorna o status 200
+        response = self.app.get('/')
+        self.assertEqual(response.status_code, 200)
 
-    def test_conteudo(self):
-        # Verifica o retorno do conteúdo da página
-        result = self.app.get('/')
-        self.assertEqual(result.data.decode('utf-8'), "Continuous Integration and Continuous Delivery")
+    def test_pagina_inicial_conteudo(self):
+        # Testa se a página inicial retorna o conteúdo esperado
+        response = self.app.get('/')
+        self.assertEqual(response.data.decode('utf-8'), "Continuous Integration and Continuous Delivery")
 
-    def test_404(self):
-        # Testa uma rota inexistente para garantir que retorna 404
-        result = self.app.get('/rota-inexistente')
-        self.assertEqual(result.status_code, 404)
+    def test_pagina_inexistente(self):
+        # Testa se uma rota inexistente retorna o status 404
+        response = self.app.get('/rota-inexistente')
+        self.assertEqual(response.status_code, 404)
 
-    def test_metodo_post(self):
-        # Testa um método POST na rota principal (se aplicável)
-        result = self.app.post('/')
-        self.assertEqual(result.status_code, 405)  # Método não permitido (se não implementado)
+    def test_metodo_nao_permitido(self):
+        # Testa se um método não permitido (POST) retorna o status 405
+        response = self.app.post('/')
+        self.assertEqual(response.status_code, 405)
 
     def test_headers(self):
-        # Verifica os headers da resposta
-        result = self.app.get('/')
-        self.assertIn('Content-Type', result.headers)
-        self.assertEqual(result.headers['Content-Type'], 'text/html; charset=utf-8')
+        # Testa se os headers da resposta contêm o tipo de conteúdo correto
+        response = self.app.get('/')
+        self.assertIn('Content-Type', response.headers)
+        self.assertEqual(response.headers['Content-Type'], 'text/html; charset=utf-8')
 
 if __name__ == '__main__':
     unittest.main()
