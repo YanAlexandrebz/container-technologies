@@ -2,7 +2,7 @@
     "containerDefinitions": [
         {
             "name": "ci-cd-app",
-            "image": "gersontpc/ci-cd-app:v1.0.0",
+            "image": "yanalexandrebz/ci-cd-app:v1.0.0",
             "cpu": 0,
             "portMappings": [
                 {
@@ -42,8 +42,8 @@
         }
     ],
     "family": "ci-cd-app",
-    "taskRoleArn": "arn:aws:iam::526926919628:role/LabRole",
-    "executionRoleArn": "arn:aws:iam::526926919628:role/LabRole",
+    "taskRoleArn": "arn:aws:iam::331442534599:role/LabRole",
+    "executionRoleArn": "arn:aws:iam::331442534599:role/LabRole",
     "networkMode": "awsvpc",
     "volumes": [],
     "placementConstraints": [],
